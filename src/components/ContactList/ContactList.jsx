@@ -28,6 +28,6 @@ ContactList.propTypes = {
       number: PropTypes.string,
       id: PropTypes.string,
     })
-  ),
-  onChange: PropTypes.func,
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
