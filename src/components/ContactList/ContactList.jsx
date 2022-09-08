@@ -29,5 +29,5 @@ ContactList.propTypes = {
       id: PropTypes.string,
     })
   ).isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };
