@@ -1,15 +1,30 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
-import { FormContact, FormLable } from './ContactForm.styled';
-import PropTypes from 'prop-types';
+import { availableContact } from 'utils/availableContact';
+import {
+  FormContact,
+  FormLable,
+  FormInput,
+  FormSubmitButton,
+} from './ContactForm.styled';
+import { addContact } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
 
-export const ContactForm = ({ addContact }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    addContact({ name, number, id: nanoid() });
+
+    if (availableContact(contacts, name)) {
+      alert(`${name} is alredy in contact`);
+      return;
+    }
+
+    dispatch(addContact(name, number));
     reset();
   };
 
@@ -23,7 +38,7 @@ export const ContactForm = ({ addContact }) => {
       <FormContact onSubmit={handleSubmit}>
         <FormLable style={{ display: 'flex' }}>
           Name{' '}
-          <input
+          <FormInput
             type="text"
             name="name"
             value={name}
@@ -35,7 +50,7 @@ export const ContactForm = ({ addContact }) => {
         </FormLable>
         <FormLable>
           Number{' '}
-          <input
+          <FormInput
             type="tel"
             name="number"
             value={number}
@@ -45,12 +60,8 @@ export const ContactForm = ({ addContact }) => {
             onChange={e => setNumber(e.target.value)}
           />
         </FormLable>
-        <button type="submit">Add contact</button>
+        <FormSubmitButton type="submit">+</FormSubmitButton>
       </FormContact>
     </div>
   );
-};
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
 };

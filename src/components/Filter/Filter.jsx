@@ -1,16 +1,20 @@
 import { FilterLable } from './Filter.styled';
-import PropTypes from 'prop-types';
+import { FormInput } from 'components/ContactForm/ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { findContact } from 'redux/filterSlice';
 
-export const Filter = ({ name, onChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const handleFilter = e => {
+    const target = e.currentTarget;
+    dispatch(findContact(target.value));
+  };
+
   return (
     <FilterLable>
       Find contacts by name
-      <input type="text" value={name} onChange={onChange} />
+      <FormInput type="text" onChange={e => handleFilter(e)} />
     </FilterLable>
   );
-};
-
-Filter.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };

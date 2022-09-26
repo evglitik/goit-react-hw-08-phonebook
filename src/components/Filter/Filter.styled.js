@@ -6,4 +6,5 @@ export const FilterLable = styled.label`
   flex-direction: column;
   gap: 5px;
   align-items: flex-start;
+  color: #f2f7fd;
 `;
