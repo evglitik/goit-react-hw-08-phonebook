@@ -6,13 +6,18 @@ import {
   FormInput,
   FormSubmitButton,
 } from './ContactForm.styled';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/contacts/selectors';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionContainer } from 'components/Navigation/Navigation.styled';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setNumber] = useState('');
+  const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
@@ -24,7 +29,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContact({ name, phone }));
+    dispatch(addContact({ name, number }));
     reset();
   };
 
@@ -34,34 +39,45 @@ export const ContactForm = () => {
   };
 
   return (
-    <div>
-      <FormContact onSubmit={handleSubmit}>
-        <FormLable style={{ display: 'flex' }}>
-          Name{' '}
-          <FormInput
-            type="text"
-            name="name"
-            value={name}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            onChange={e => setName(e.target.value)}
-          />
-        </FormLable>
-        <FormLable>
-          Number{' '}
-          <FormInput
-            type="tel"
-            name="phone"
-            value={phone}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            onChange={e => setNumber(e.target.value)}
-          />
-        </FormLable>
-        <FormSubmitButton type="submit">+</FormSubmitButton>
-      </FormContact>
-    </div>
+    <AccordionContainer>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography>Add Contact</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <FormContact onSubmit={handleSubmit}>
+          <FormLable>
+            Name
+            <FormInput
+              label="Name"
+              type="text"
+              name="name"
+              value={name}
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+              onChange={e => setName(e.target.value)}
+            />
+          </FormLable>
+          <FormLable>
+            Number
+            <FormInput
+              label="Number"
+              type="tel"
+              name="phone"
+              value={number}
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              onChange={e => setNumber(e.target.value)}
+            />
+          </FormLable>
+          <FormSubmitButton type="submit">+</FormSubmitButton>
+        </FormContact>
+      </AccordionDetails>
+    </AccordionContainer>
   );
 };

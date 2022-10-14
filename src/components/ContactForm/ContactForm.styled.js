@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 export const FormContact = styled.form`
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: flex-start; */
   display: grid;
   grid-template-columns: 1fr 1fr 150px 2fr;
   gap: 10px;
@@ -18,12 +15,10 @@ export const FormLable = styled.label`
 export const FormInput = styled.input`
   padding: 8px 16px;
   font-size: 16px;
-  /* height: 39px; */
-
   border-color: transparent;
-  background-color: #313f46;
-  color: #f2f7fd;
-  border-radius: 22px;
+  background-color: #009688;
+  color: #e0f2f1;
+  border-radius: 4px;
   box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.62);
   text-shadow: 0px 0px 5px rgba(66, 66, 66, 0.75);
   &:focus {
@@ -38,15 +33,17 @@ export const FormSubmitButton = styled.button`
   width: 39px;
   height: 39px;
   border-radius: 50%;
-  background-color: #313f46;
+  background-color: #009688;
   border: none;
   cursor: pointer;
   text-align: center;
   color: #506874;
   font-weight: 400;
   font-size: 32px;
+  box-shadow: 0px 0px 5px rgba(66, 66, 66, 0.62);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover {
-    color: #f2f7fd;
-    background-color: #445760;
+    color: #e0f2f1;
+    background-color: #004d40;
   }
 `;

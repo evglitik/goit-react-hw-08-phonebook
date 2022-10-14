@@ -8,8 +8,8 @@ const SharedLayout = () => {
     <>
       <Navigation />
 
-      <Suspense fallback={<div>Loader.........</div>}>
-        <Box as="div">
+      <Suspense fallback={<div>Loader))))))))))</div>}>
+        <Box p={4} as="main" mt={5}>
           <Outlet />
         </Box>
       </Suspense>
