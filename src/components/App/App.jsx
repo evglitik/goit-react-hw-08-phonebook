@@ -10,7 +10,7 @@ import { selectRefresh } from 'redux/auth/selectors';
 
 const Contacts = lazy(() => import('../../pages/Contacts'));
 const Register = lazy(() => import('../../pages/Register'));
-const Login  = lazy(() => import('../../pages/Login'));
+const Login = lazy(() => import('../../pages/Login'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,30 +20,32 @@ export const App = () => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-      isRefresh ? <div>Loader..............</div> :
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route path="/" element={<div>HOMEPAGE</div>} />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute redirectTo="/contacts" component={<Register />} />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <PublicRoute redirectTo="/contacts" component={<Login />} />
-            }
-          />
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute redirectTo="/login" component={<Contacts />} />
-            }
-          />
-        </Route>
-      </Routes>
+  return isRefresh ? (
+    <div>Loader..............</div>
+  ) : (
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route
+          path="/"
+          element={<PublicRoute redirectTo="/contacts" component={<Login />} />}
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute redirectTo="/contacts" component={<Register />} />
+          }
+        />
+        <Route
+          path="/login"
+          element={<PublicRoute redirectTo="/contacts" component={<Login />} />}
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<Contacts />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

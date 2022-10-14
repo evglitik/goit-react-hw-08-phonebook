@@ -5,7 +5,6 @@ import Accordion from '@mui/material/Accordion';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Header = styled(AppBar)(({ theme }) => ({
   height: '60px',
